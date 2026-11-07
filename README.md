@@ -48,7 +48,7 @@ Related: [bank-jurisdiction-compare](https://github.com/udrism-lang/bank-jurisdi
 ## Comparability
 
 - Periods: calendar 2025 for all except Monzo (year to 31 March 2026).
-- Currencies: amounts stay in the reporting currency. Sizes are converted to EUR only for the "Assets EUR bn" console column, at ECB reference rates on 31.12.2025. Ratios are never converted.
+- Currencies: amounts stay in the reporting currency. Sizes are converted to EUR only in the "Assets EUR bn" column of the console output, at ECB reference rates on 31.12.2025. Ratios are never converted.
 - NIM definitions differ (average interest-earning assets vs average total assets), so NIM is shown in the HTML report but not used in the findings.
 - Bank X cost of risk includes day-one IFRS 9 provisions on new lending, which are high while the loan book grows fast. Its underlying assumption is 2.0%.
 - One value is flagged `needs_check`: TF Bank's 3.4m customers, which come from the results presentation rather than the year-end report.
