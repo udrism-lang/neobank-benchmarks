@@ -12,11 +12,11 @@ from pathlib import Path
 
 from benchmarks.data import load, validate
 from benchmarks.findings import findings
-from benchmarks.report import write_charts, write_html, write_markdown
+from benchmarks.report import readme_table, write_charts, write_html, write_markdown
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Benchmark digital and consumer-lending banks against Bank X")
+    parser = argparse.ArgumentParser(description="Benchmark digital banks and deposit-funded lenders against Bank X")
     parser.add_argument("--data", default="data/benchmarks.yaml", help="Path to the benchmarks YAML")
     parser.add_argument("--out", default="output", help="Output folder")
     args = parser.parse_args()
@@ -32,6 +32,7 @@ def main() -> None:
     charts = write_charts(ds, out)
     write_markdown(ds, found, out / "summary.md")
     write_html(ds, found, charts, out / "report.html")
+    (out / "readme_table.md").write_text(readme_table(ds), encoding="utf-8")
 
     print(f"{'Company':<22}{'Period':<10}{'ROE':>8}{'C/I':>8}{'CoR':>8}{'Assets EUR bn':>15}")
     for c in ds.companies:

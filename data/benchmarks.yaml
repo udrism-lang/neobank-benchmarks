@@ -1,10 +1,14 @@
-# Public benchmarks for digital and consumer-lending banks, compared with the Bank X model (year 5).
+# Public benchmarks for digital banks and deposit-funded lenders, compared with the Bank X model (year 5).
 # Amounts in millions of the reporting currency (not converted); ratios as decimals (0.123 = 12.3%);
-# customers in millions. Each value has a source (URL plus page) or needs_check: true.
-# "Computed" in a note means the company does not report the ratio and it was calculated from reported lines.
+# customers in millions. Each value has a source URL or needs_check: true. Page numbers are PDF page numbers
+# where given; customer counts and the Bank X rows have no page.
+# "Computed" at the start of a note means the company does not report the ratio on this basis and it was
+# calculated from reported lines; the note lists the inputs and pages.
+# Loans are net loans to customers from the balance sheet for every bank.
+# Fees / income is net fee and commission income / total net operating income for every bank.
 
-title: "Digital and consumer-lending banks: public benchmarks vs Bank X"
-as_of: 2026-10-31
+title: "Digital banks and deposit-funded lenders: public benchmarks vs Bank X"
+as_of: 2026-11-15
 
 fx:
   # ECB euro reference rates, 31.12.2025, used only to compare sizes. Ratios are never converted.
@@ -19,60 +23,69 @@ fx:
 
 metrics:
   total_assets: {label: Total assets, kind: amount, description: "Total assets at year end"}
-  loans: {label: Loans, kind: amount, description: "Loans to customers at year end (gross where reported)"}
+  loans: {label: Loans, kind: amount, description: "Net loans to customers on the balance sheet at year end"}
   deposits: {label: Deposits, kind: amount, description: "Customer deposits at year end"}
   equity: {label: Equity, kind: amount, description: "Total equity at year end"}
-  total_income: {label: Total income, kind: amount, description: "Net interest + net fee + other income, before costs and credit losses"}
+  equity_prev: {label: Equity, prior year, kind: amount, description: "Total equity at the previous year end, used to check ROE"}
+  total_income: {label: Total income, kind: amount, description: "Total net operating income: net interest + net fee + other income, before costs and credit losses"}
   net_profit: {label: Net profit, kind: amount, description: "Profit after tax for the year"}
-  roe: {label: ROE, kind: ratio, description: "Net profit / average equity"}
-  cost_income: {label: Cost / income, kind: ratio, description: "Operating expenses / total income, excluding credit losses"}
+  roe: {label: ROE, kind: ratio, description: "Net profit / average equity (TF Bank: on equity excluding its Tier 1 instrument)"}
+  roe_core: {label: ROE excl. one-offs, kind: ratio, description: "ROE excluding one-off items, as reported by the company"}
+  cost_income: {label: Cost / income, kind: ratio, description: "Operating expenses / total net operating income, excluding credit losses (statutory, not adjusted)"}
   cost_of_risk: {label: Cost of risk, kind: ratio, description: "Credit loss charge / average loans"}
   nim: {label: NIM, kind: ratio, description: "Net interest margin as reported (definitions differ, see notes)"}
-  loan_yield: {label: Loan yield, kind: ratio, description: "Interest income on loans / average loans"}
-  fee_share: {label: Fees / income, kind: ratio, description: "Net fee and commission income / total income"}
+  loan_yield: {label: Loan yield, kind: ratio, description: "Interest income on loans to customers / average loans"}
+  fee_share: {label: Fees / income, kind: ratio, description: "Net fee and commission income / total net operating income"}
+  consumer_loan_share: {label: Consumer loans / portfolio, kind: ratio, description: "Unsecured consumer loans as a share of the loan portfolio"}
+  mortgages: {label: Mortgages, kind: amount, description: "Mortgage loans included in loans"}
+  municipal_loans: {label: Municipal loans, kind: amount, description: "Loans to municipalities included in loans"}
   customers: {label: Customers, kind: count, description: "Customers in millions (definitions differ, see notes)"}
 
 companies:
   INB:
     name: Inbank
     country: EE
-    model: Consumer loans and deposits, Baltics and CEE
+    model: Consumer loans, rental and deposits, Baltics and CEE
     period: FY2025
     currency: EUR
     values:
-      total_assets: {value: 1580.0, source: "https://nasdaqbaltic.com/market/upload/reports/inb/2025_q4_en_eur_con.pdf", note: "p9, unaudited"}
-      loans: {value: 1277.0, source: "https://nasdaqbaltic.com/market/upload/reports/inb/2025_q4_en.pdf", note: "p5, loan and rental portfolio"}
-      deposits: {value: 1301.1, source: "https://nasdaqbaltic.com/market/upload/reports/inb/2025_q4_en_eur_con.pdf", note: "p9"}
-      equity: {value: 171.0, source: "https://nasdaqbaltic.com/market/upload/reports/inb/2025_q4_en_eur_con.pdf", note: "p9"}
-      total_income: {value: 85.1, source: "https://nasdaqbaltic.com/market/upload/reports/inb/2025_q4_en_eur_con.pdf", note: "p10, total net income incl. EUR 14.7m net rental income"}
-      net_profit: {value: 19.2, source: "https://nasdaqbaltic.com/market/upload/reports/inb/2025_q4_en_eur_con.pdf", note: "p10; core net profit EUR 17.6m excludes a one-off Polish tax asset gain"}
-      roe: {value: 0.123, source: "https://nasdaqbaltic.com/market/upload/reports/inb/2025_q4_en.pdf", note: "p2, reported; core ROE 11.2%"}
-      cost_income: {value: 0.544, source: "https://nasdaqbaltic.com/market/upload/reports/inb/2025_q4_en.pdf", note: "p2"}
-      cost_of_risk: {value: 0.0159, source: "https://nasdaqbaltic.com/market/upload/reports/inb/2025_q4_en.pdf", note: "p2, impairments / average loan and rental portfolio"}
+      total_assets: {value: 1580.0, source: "https://nasdaqbaltic.com/market/upload/reports/inb/2025_ar_en_eur_con.pdf", note: "Audited annual report p39"}
+      loans: {value: 1152.1, source: "https://nasdaqbaltic.com/market/upload/reports/inb/2025_ar_en_eur_con.pdf", note: "p39, loans and receivables (net); excludes the rental portfolio, which Inbank adds to report a loan and rental portfolio of EUR 1,277m"}
+      deposits: {value: 1301.1, source: "https://nasdaqbaltic.com/market/upload/reports/inb/2025_ar_en_eur_con.pdf", note: "p39"}
+      equity: {value: 171.0, source: "https://nasdaqbaltic.com/market/upload/reports/inb/2025_ar_en_eur_con.pdf", note: "p39"}
+      equity_prev: {value: 147.6, source: "https://nasdaqbaltic.com/market/upload/reports/inb/2025_ar_en_eur_con.pdf", note: "p39, 31.12.2024"}
+      total_income: {value: 85.1, source: "https://nasdaqbaltic.com/market/upload/reports/inb/2025_ar_en_eur_con.pdf", note: "p40, total net income incl. EUR 14.7m net rental income"}
+      net_profit: {value: 19.2, source: "https://nasdaqbaltic.com/market/upload/reports/inb/2025_ar_en_eur_con.pdf", note: "p40; income tax only EUR 0.3m on profit before tax EUR 19.5m because of a one-off reassessment of Polish tax assets; core net profit EUR 17.6m (Q4 2025 report p5)"}
+      roe: {value: 0.123, source: "https://nasdaqbaltic.com/market/upload/reports/inb/2025_q4_en.pdf", note: "Reported, Q4 2025 interim report p2 (the annual report's management report is not machine-readable); includes the one-off Polish tax gain. From the audited statements: 19.2 / average equity 159.3 = 12.0%"}
+      roe_core: {value: 0.112, source: "https://nasdaqbaltic.com/market/upload/reports/inb/2025_q4_en.pdf", note: "Q4 2025 interim report p5, core business ROE excluding one-off income and expenses"}
+      cost_income: {value: 0.544, source: "https://nasdaqbaltic.com/market/upload/reports/inb/2025_ar_en_eur_con.pdf", note: "Reported 54.4% (Q4 2025 report p2); equals operating expenses 46.3 / total net income 85.1 in the audited annual report p40"}
+      cost_of_risk: {value: 0.0176, source: "https://nasdaqbaltic.com/market/upload/reports/inb/2025_ar_en_eur_con.pdf", note: "Computed: impairment losses on loans and receivables 19.3 (p40) / average loans and receivables 1,096.8 (p39). Inbank reports 1.59% on the larger loan and rental portfolio"}
       nim: {value: null, note: "Not reported; Inbank reports a total income margin of 5.5%"}
-      loan_yield: {value: 0.111, source: "https://nasdaqbaltic.com/market/upload/reports/inb/2025_q4_en.pdf", note: "p5, portfolio yield"}
-      fee_share: {value: -0.051, source: "https://nasdaqbaltic.com/market/upload/reports/inb/2025_q4_en_eur_con.pdf", note: "Computed, p10: net fee income -4.37 / 85.1; fee expense exceeds fee income"}
+      loan_yield: {value: 0.110, source: "https://nasdaqbaltic.com/market/upload/reports/inb/2025_ar_en_eur_con.pdf", note: "Computed: interest income on loans and receivables 120.4 (p75, net interest income note) / average loans and receivables 1,096.8 (p39). Inbank's reported portfolio yield (11.1%) includes net rental income"}
+      fee_share: {value: -0.051, source: "https://nasdaqbaltic.com/market/upload/reports/inb/2025_ar_en_eur_con.pdf", note: "Computed, p40: net fee and commission income -4.37 / total net income 85.1; fee expense exceeds fee income"}
       customers: {value: null, note: "Not reported as a customer count (900,000+ active contracts, 121,000+ depositors)"}
 
   BIG:
     name: Bigbank
     country: EE
-    model: Consumer and business loans, deposits across the EU
+    model: Business, home and consumer loans, deposits across the EU
     period: FY2025
     currency: EUR
     values:
-      total_assets: {value: 3316.7, source: "https://static.bigbank.eu/assets/2026/02/Bigbank_interimreport_Q4_2025.pdf", note: "p11"}
-      loans: {value: 2707.5, source: "https://static.bigbank.eu/assets/2026/02/Bigbank_interimreport_Q4_2025.pdf", note: "p11, net; gross portfolio 2,729.2"}
-      deposits: {value: 2879.6, source: "https://static.bigbank.eu/assets/2026/02/Bigbank_interimreport_Q4_2025.pdf", note: "p11"}
-      equity: {value: 299.4, source: "https://static.bigbank.eu/assets/2026/02/Bigbank_interimreport_Q4_2025.pdf", note: "p11"}
-      total_income: {value: 114.5, source: "https://static.bigbank.eu/assets/2026/02/Bigbank_interimreport_Q4_2025.pdf", note: "p12, total net operating income"}
-      net_profit: {value: 37.9, source: "https://static.bigbank.eu/assets/2026/02/Bigbank_interimreport_Q4_2025.pdf", note: "p12"}
-      roe: {value: 0.133, source: "https://static.bigbank.eu/assets/2026/02/Bigbank_annual_report_2025.pdf", note: "p19"}
-      cost_income: {value: 0.486, source: "https://static.bigbank.eu/assets/2026/02/Bigbank_annual_report_2025.pdf", note: "p19"}
-      cost_of_risk: {value: 0.0049, source: "https://static.bigbank.eu/assets/2026/02/Bigbank_interimreport_Q4_2025.pdf", note: "Computed: net ECL 12.0 / average net loans 2,452.0 (p5, p11)"}
+      total_assets: {value: 3316.7, source: "https://static.bigbank.eu/assets/2026/02/Bigbank_annual_report_2025.pdf", note: "Audited annual report p111"}
+      loans: {value: 2707.5, source: "https://static.bigbank.eu/assets/2026/02/Bigbank_annual_report_2025.pdf", note: "p111, net; gross loan portfolio 2,729.2 (p18)"}
+      deposits: {value: 2879.6, source: "https://static.bigbank.eu/assets/2026/02/Bigbank_annual_report_2025.pdf", note: "p111"}
+      equity: {value: 299.4, source: "https://static.bigbank.eu/assets/2026/02/Bigbank_annual_report_2025.pdf", note: "p111"}
+      equity_prev: {value: 269.8, source: "https://static.bigbank.eu/assets/2026/02/Bigbank_annual_report_2025.pdf", note: "p111, 31.12.2024"}
+      total_income: {value: 114.5, source: "https://static.bigbank.eu/assets/2026/02/Bigbank_annual_report_2025.pdf", note: "p112, total net operating income"}
+      net_profit: {value: 37.9, source: "https://static.bigbank.eu/assets/2026/02/Bigbank_annual_report_2025.pdf", note: "p112"}
+      roe: {value: 0.133, source: "https://static.bigbank.eu/assets/2026/02/Bigbank_annual_report_2025.pdf", note: "p19; profit / average equity 284.6 (p18)"}
+      cost_income: {value: 0.486, source: "https://static.bigbank.eu/assets/2026/02/Bigbank_annual_report_2025.pdf", note: "p19; total expenses 55.6 / net operating income 114.5 (p112)"}
+      cost_of_risk: {value: 0.0049, source: "https://static.bigbank.eu/assets/2026/02/Bigbank_annual_report_2025.pdf", note: "Computed: net expected credit loss allowances 12.0 (p112) / average net loans 2,452.0 (p111)"}
       nim: {value: 0.036, source: "https://static.bigbank.eu/assets/2026/02/Bigbank_annual_report_2025.pdf", note: "p19, NII / average interest-earning assets"}
-      loan_yield: {value: 0.068, source: "https://static.bigbank.eu/assets/2026/02/Bigbank_annual_report_2025.pdf", note: "p19, return on loans"}
-      fee_share: {value: 0.093, source: "https://static.bigbank.eu/assets/2026/02/Bigbank_interimreport_Q4_2025.pdf", note: "Computed: net fee 10.6 / 114.5 (p12)"}
+      loan_yield: {value: 0.068, source: "https://static.bigbank.eu/assets/2026/02/Bigbank_annual_report_2025.pdf", note: "p19, 'return on loans' = interest income on loan portfolio / average loan portfolio (p20); matches interest income on loans 169.4 (p186) / average gross portfolio 2,474.1 (p18)"}
+      fee_share: {value: 0.093, source: "https://static.bigbank.eu/assets/2026/02/Bigbank_annual_report_2025.pdf", note: "Computed: net fee and commission income 10.6 / total net operating income 114.5 (p112)"}
+      consumer_loan_share: {value: 0.313, source: "https://static.bigbank.eu/assets/2026/02/Bigbank_annual_report_2025.pdf", note: "Computed: consumer loans 854 / loan portfolio 2,729.2 (p14, p18). Business loans 1.0bn and home loans 820m (p14); home loans and most business loans are secured on real estate (p130)"}
       customers: {value: null, note: "Not in the 2025 reports; about 190,000 active customers cited elsewhere, unverified"}
 
   TFB:
@@ -82,19 +95,20 @@ companies:
     period: FY2025
     currency: SEK
     values:
-      total_assets: {value: 29118.5, source: "https://mb.cision.com/Main/13973/4294578/3884321.pdf", note: "p18, year-end report"}
-      loans: {value: 23678.3, source: "https://mb.cision.com/Main/13973/4294578/3884321.pdf", note: "p4, loans to the public"}
-      deposits: {value: 24692.2, source: "https://mb.cision.com/Main/13973/4294578/3884321.pdf", note: "p4"}
-      equity: {value: 3288.0, source: "https://mb.cision.com/Main/13973/4294578/3884321.pdf", note: "p18, incl. SEK 250m Tier 1 instrument"}
-      total_income: {value: 2904.5, source: "https://mb.cision.com/Main/13973/4294578/3884321.pdf", note: "p17, total operating income"}
-      net_profit: {value: 667.0, source: "https://mb.cision.com/Main/13973/4294578/3884321.pdf", note: "p4"}
-      roe: {value: 0.231, source: "https://mb.cision.com/Main/13973/4294578/3884321.pdf", note: "p2, on equity attributable to Parent shareholders"}
-      cost_income: {value: 0.363, source: "https://mb.cision.com/Main/13973/4294578/3884321.pdf", note: "p2, full year (Q4 35.0%)"}
-      cost_of_risk: {value: 0.045, source: "https://mb.cision.com/Main/13973/4294578/3884321.pdf", note: "p4, net loan loss ratio"}
-      nim: {value: null, note: "Not reported; operating income margin on loans 13.2% (p4)"}
-      loan_yield: {value: 0.159, source: "https://mb.cision.com/Main/13973/4294578/3884321.pdf", note: "Computed: interest income 3,487.6 / average loans 21,971.9"}
-      fee_share: {value: 0.076, source: "https://mb.cision.com/Main/13973/4294578/3884321.pdf", note: "Computed: net fee 221.9 / 2,904.5 (p6, p17)"}
-      customers: {value: 3.4, source: "https://group.avarda.com/sv/wp-content/uploads/sites/3/2021/03/tf-bank-year-end-report-2025-presentation.pdf", note: "Q4 2025 presentation p3, LTM customers", needs_check: true}
+      total_assets: {value: 29118.5, source: "https://group.tfbank.se/en/wp-content/uploads/sites/2/2026/03/wkr0006-1.pdf", note: "Audited annual report p27"}
+      loans: {value: 23678.3, source: "https://group.tfbank.se/en/wp-content/uploads/sites/2/2026/03/wkr0006-1.pdf", note: "p27, loans to the public (net)"}
+      deposits: {value: 24692.2, source: "https://group.tfbank.se/en/wp-content/uploads/sites/2/2026/03/wkr0006-1.pdf", note: "p27, deposits and borrowings from the public"}
+      equity: {value: 3288.0, source: "https://group.tfbank.se/en/wp-content/uploads/sites/2/2026/03/wkr0006-1.pdf", note: "p27, incl. SEK 250m Tier 1 capital instrument"}
+      equity_prev: {value: 2772.7, source: "https://group.tfbank.se/en/wp-content/uploads/sites/2/2026/03/wkr0006-1.pdf", note: "p27, 31.12.2024, incl. SEK 250m Tier 1 capital instrument"}
+      total_income: {value: 2904.5, source: "https://group.tfbank.se/en/wp-content/uploads/sites/2/2026/03/wkr0006-1.pdf", note: "p26, total operating income"}
+      net_profit: {value: 667.0, source: "https://group.tfbank.se/en/wp-content/uploads/sites/2/2026/03/wkr0006-1.pdf", note: "p26; of which 641.2 to shareholders and 25.8 to Tier 1 instrument holders"}
+      roe: {value: 0.231, source: "https://group.tfbank.se/en/wp-content/uploads/sites/2/2026/03/wkr0006-1.pdf", note: "p13, reported. Basis differs from the other banks: profit to shareholders 641.2 / average equity excl. the Tier 1 instrument 2,780.3 (p26-27). On total equity: 667.0 / 3,030.3 = 22.0%"}
+      cost_income: {value: 0.363, source: "https://group.tfbank.se/en/wp-content/uploads/sites/2/2026/03/wkr0006-1.pdf", note: "p13, full year; operating expenses 1,052.9 / operating income 2,904.5 (p26)"}
+      cost_of_risk: {value: 0.045, source: "https://group.tfbank.se/en/wp-content/uploads/sites/2/2026/03/wkr0006-1.pdf", note: "p13, net loan loss ratio; net loan losses 995.8 / average loans 21,971.9"}
+      nim: {value: null, note: "Not reported; operating income margin on loans 13.2% (p13)"}
+      loan_yield: {value: 0.153, source: "https://group.tfbank.se/en/wp-content/uploads/sites/2/2026/03/wkr0006-1.pdf", note: "Computed: interest income from loans to the public 3,357.5 (p45, note G6) / average loans 21,971.9 (p27). Excludes interest on the liquidity portfolio"}
+      fee_share: {value: 0.076, source: "https://group.tfbank.se/en/wp-content/uploads/sites/2/2026/03/wkr0006-1.pdf", note: "Computed: net fee and commission income 221.9 / total operating income 2,904.5 (p26)"}
+      customers: {value: 3.4, source: "https://group.avarda.com/sv/wp-content/uploads/sites/3/2021/03/tf-bank-year-end-report-2025-presentation.pdf", note: "Q4 2025 presentation p3, LTM customers; not in the annual report", needs_check: true}
 
   REV:
     name: Revolut
@@ -104,17 +118,18 @@ companies:
     currency: GBP
     values:
       total_assets: {value: 43024.4, source: "https://assets.revolut.com/pdf/annualreport2025.pdf", note: "p97"}
-      loans: {value: 2242.2, source: "https://assets.revolut.com/pdf/annualreport2025.pdf", note: "p140, gross loans to customers"}
+      loans: {value: 2150.1, source: "https://assets.revolut.com/pdf/annualreport2025.pdf", note: "p97, net loans and advances to customers; gross 2,242.2 (p140)"}
       deposits: {value: 36143.4, source: "https://assets.revolut.com/pdf/annualreport2025.pdf", note: "p144; total customer balances incl. off-balance-sheet products GBP 50.2bn"}
       equity: {value: 4893.8, source: "https://assets.revolut.com/pdf/annualreport2025.pdf", note: "p97"}
+      equity_prev: {value: 2569.3, source: "https://assets.revolut.com/pdf/annualreport2025.pdf", note: "p97, 31.12.2024"}
       total_income: {value: 3665.6, source: "https://assets.revolut.com/pdf/annualreport2025.pdf", note: "Computed, p96: revenue 4,515.8 less fee expense 767.2 and interest expense 83.0"}
       net_profit: {value: 1304.6, source: "https://assets.revolut.com/pdf/annualreport2025.pdf", note: "p96; profit before tax GBP 1,713.3m"}
-      roe: {value: 0.350, source: "https://assets.revolut.com/pdf/annualreport2025.pdf", note: "Computed: 1,304.6 / average equity 3,731.6"}
-      cost_income: {value: 0.510, source: "https://assets.revolut.com/pdf/annualreport2025.pdf", note: "Computed: admin + other operating expenses 1,871.1 / net income 3,665.6"}
-      cost_of_risk: {value: 0.0375, source: "https://assets.revolut.com/pdf/annualreport2025.pdf", note: "Computed: lending impairment 61.2 / average gross loans 1,631.7 (p96, p140)"}
+      roe: {value: 0.350, source: "https://assets.revolut.com/pdf/annualreport2025.pdf", note: "Computed: 1,304.6 (p96) / average equity 3,731.6 (p97)"}
+      cost_income: {value: 0.510, source: "https://assets.revolut.com/pdf/annualreport2025.pdf", note: "Computed, p96: administrative expenses 1,804.4 + other operating expenses 66.7 = 1,871.1 / total net income 3,665.6"}
+      cost_of_risk: {value: 0.0375, source: "https://assets.revolut.com/pdf/annualreport2025.pdf", note: "Computed: credit losses on lending products 61.2 (p96) / average gross loans 1,631.7 (p140)"}
       nim: {value: null, note: "Not reported"}
-      loan_yield: {value: 0.093, source: "https://assets.revolut.com/pdf/annualreport2025.pdf", note: "Computed: interest on customer loans 151.4 / average gross loans 1,631.7 (p123)"}
-      fee_share: {value: 0.76, source: "https://assets.revolut.com/pdf/annualreport2025.pdf", note: "p13, fee income / gross revenue (not net income)"}
+      loan_yield: {value: 0.093, source: "https://assets.revolut.com/pdf/annualreport2025.pdf", note: "Computed: interest on loans and advances to customers 151.4 (p123) / average gross loans 1,631.7 (p140)"}
+      fee_share: {value: 0.726, source: "https://assets.revolut.com/pdf/annualreport2025.pdf", note: "Computed, p96: net fee income 2,662.0 (fee income 3,429.2 - fee expense 767.2) / total net income 3,665.6. Revolut's own 76% (p13) is fee income / gross revenue"}
       customers: {value: 68.3, source: "https://assets.revolut.com/pdf/annualreport2025.pdf", note: "p4, retail customers"}
 
   MONZO:
@@ -125,17 +140,18 @@ companies:
     currency: GBP
     values:
       total_assets: {value: 27605.7, source: "https://monzo.com/annual-report/2026/Monzo-Annual-Report-2026.pdf", note: "p121, 31.03.2026; EUR size uses the 31.12.2025 rate (0.5% different)"}
-      loans: {value: 2631.4, source: "https://monzo.com/annual-report/2026/Monzo-Annual-Report-2026.pdf", note: "p195, gross lending balances"}
+      loans: {value: 2311.9, source: "https://monzo.com/annual-report/2026/Monzo-Annual-Report-2026.pdf", note: "p121, net loans and advances to customers; gross lending balances 2,631.4 (p195)"}
       deposits: {value: 25716.0, source: "https://monzo.com/annual-report/2026/Monzo-Annual-Report-2026.pdf", note: "p121"}
       equity: {value: 1283.6, source: "https://monzo.com/annual-report/2026/Monzo-Annual-Report-2026.pdf", note: "p121"}
-      total_income: {value: 1216.5, source: "https://monzo.com/annual-report/2026/Monzo-Annual-Report-2026.pdf", note: "p195, revenue 1,712.3 less interest and fee expense"}
-      net_profit: {value: 86.3, source: "https://monzo.com/annual-report/2026/Monzo-Annual-Report-2026.pdf", note: "p25; adjusted PBT 172.6"}
-      roe: {value: 0.069, source: "https://monzo.com/annual-report/2026/Monzo-Annual-Report-2026.pdf", note: "Computed: 86.3 / average equity 1,248.3"}
-      cost_income: {value: 0.74, source: "https://monzo.com/annual-report/2026/Monzo-Annual-Report-2026.pdf", note: "p194, reported adjusted cost/income"}
+      equity_prev: {value: 1212.9, source: "https://monzo.com/annual-report/2026/Monzo-Annual-Report-2026.pdf", note: "p121, 31.03.2025"}
+      total_income: {value: 1216.5, source: "https://monzo.com/annual-report/2026/Monzo-Annual-Report-2026.pdf", note: "Computed, p120: revenue 1,712.3 less interest expense 376.9 and fee and commission expense 118.9 (also p195)"}
+      net_profit: {value: 86.3, source: "https://monzo.com/annual-report/2026/Monzo-Annual-Report-2026.pdf", note: "p120; profit before tax 87.3, tax only 1.0 (about 1%); adjusted PBT 172.6 (p195)"}
+      roe: {value: 0.069, source: "https://monzo.com/annual-report/2026/Monzo-Annual-Report-2026.pdf", note: "Computed: 86.3 (p120) / average equity 1,248.3 (p121). Tax charge about 1% of profit before tax, so not comparable with fully taxed banks"}
+      cost_income: {value: 0.761, source: "https://monzo.com/annual-report/2026/Monzo-Annual-Report-2026.pdf", note: "Computed, p120: total operating expense 925.5 / total net income 1,216.5 (statutory). Monzo reports an adjusted 74% excluding one-offs of 26.3 (p194-195)"}
       cost_of_risk: {value: 0.090, source: "https://monzo.com/annual-report/2026/Monzo-Annual-Report-2026.pdf", note: "p23, total loan loss rate on average gross lending"}
       nim: {value: 0.037, source: "https://monzo.com/annual-report/2026/Monzo-Annual-Report-2026.pdf", note: "p24"}
       loan_yield: {value: null, note: "Not reported"}
-      fee_share: {value: 0.268, source: "https://monzo.com/annual-report/2026/Monzo-Annual-Report-2026.pdf", note: "Computed: fee income 459.0 / revenue 1,712.3"}
+      fee_share: {value: 0.280, source: "https://monzo.com/annual-report/2026/Monzo-Annual-Report-2026.pdf", note: "Computed, p120: net fee income 340.1 (fee and commission income 459.0 - fee and commission expense 118.9) / total net income 1,216.5"}
       customers: {value: 15.0, source: "https://monzo.com/annual-report/2026/Monzo-Annual-Report-2026.pdf", note: "p23, 'over 15m' personal and business customers; 10.4m monthly active"}
 
   BUNQ:
@@ -146,17 +162,19 @@ companies:
     currency: EUR
     values:
       total_assets: {value: 9051.6, source: "https://static.bunq.com/website/documents/bunq-report-annual-2025-en.pdf", note: "p58"}
-      loans: {value: 2527.1, source: "https://static.bunq.com/website/documents/bunq-report-annual-2025-en.pdf", note: "Computed, p58: loans 1,064.6 + mortgages 1,462.5"}
+      loans: {value: 2527.1, source: "https://static.bunq.com/website/documents/bunq-report-annual-2025-en.pdf", note: "Computed, p58: loans and advances to customers 1,064.6 + mortgages 1,462.5"}
+      mortgages: {value: 1462.5, source: "https://static.bunq.com/website/documents/bunq-report-annual-2025-en.pdf", note: "p58"}
       deposits: {value: 8427.0, source: "https://static.bunq.com/website/documents/bunq-report-annual-2025-en.pdf", note: "p58"}
       equity: {value: 460.7, source: "https://static.bunq.com/website/documents/bunq-report-annual-2025-en.pdf", note: "p58"}
+      equity_prev: {value: 438.0, source: "https://static.bunq.com/website/documents/bunq-report-annual-2025-en.pdf", note: "p58, 31.12.2024"}
       total_income: {value: 210.1, source: "https://static.bunq.com/website/documents/bunq-report-annual-2025-en.pdf", note: "Computed, p59: NII 158.7 + net fee 50.8 + derivative gains 0.7"}
-      net_profit: {value: 22.4, source: "https://static.bunq.com/website/documents/bunq-report-annual-2025-en.pdf", note: "p59; 2024 net profit 63.6 (the often-quoted 85.3 is profit before tax)"}
-      roe: {value: 0.050, source: "https://static.bunq.com/website/documents/bunq-report-annual-2025-en.pdf", note: "Computed: 22.4 / average equity 449.4"}
-      cost_income: {value: 0.780, source: "https://static.bunq.com/website/documents/bunq-report-annual-2025-en.pdf", note: "Computed: opex 164.0 / 210.1"}
-      cost_of_risk: {value: 0.0050, source: "https://static.bunq.com/website/documents/bunq-report-annual-2025-en.pdf", note: "Computed: impairment 11.6 / average loans and mortgages 2,326.6"}
-      nim: {value: 0.018, source: "https://static.bunq.com/website/documents/bunq-report-annual-2025-en.pdf", note: "Computed: NII / average total assets"}
+      net_profit: {value: 22.4, source: "https://static.bunq.com/website/documents/bunq-report-annual-2025-en.pdf", note: "p59, result for the period; 2024: 63.6 after tax, 85.3 before tax. bunq's 2024 annual report text called the 85.3 'net profit' (https://static.bunq.com/website/documents/bunq-report-annual-2024-en.pdf p18; income statement p63)"}
+      roe: {value: 0.050, source: "https://static.bunq.com/website/documents/bunq-report-annual-2025-en.pdf", note: "Computed: 22.4 (p59) / average equity 449.4 (p58)"}
+      cost_income: {value: 0.780, source: "https://static.bunq.com/website/documents/bunq-report-annual-2025-en.pdf", note: "Computed, p59: total operating expenses 164.0 / 210.1"}
+      cost_of_risk: {value: 0.0050, source: "https://static.bunq.com/website/documents/bunq-report-annual-2025-en.pdf", note: "Computed: impairment 11.6 (p59) / average loans and mortgages 2,326.6 (p58)"}
+      nim: {value: 0.018, source: "https://static.bunq.com/website/documents/bunq-report-annual-2025-en.pdf", note: "Computed: NII 158.7 / average total assets 8,803.8 (p58-59)"}
       loan_yield: {value: null, note: "Not reported"}
-      fee_share: {value: 0.242, source: "https://static.bunq.com/website/documents/bunq-report-annual-2025-en.pdf", note: "Computed: net fee 50.8 / 210.1"}
+      fee_share: {value: 0.242, source: "https://static.bunq.com/website/documents/bunq-report-annual-2025-en.pdf", note: "Computed, p59: net fee income 50.8 / 210.1"}
       customers: {value: 22.0, source: "https://static.bunq.com/website/documents/bunq-report-annual-2025-en.pdf", note: "p6, 'users on our platform', not active customers"}
 
   N26:
@@ -166,19 +184,22 @@ companies:
     period: FY2025
     currency: EUR
     values:
-      total_assets: {value: 11108.0, source: "https://www.lobbyregister.bundestag.de/media/61/fc/814102/N26_Financial-Report_.pdf", note: "p21, audited HGB group accounts"}
-      loans: {value: 3929.2, source: "https://www.lobbyregister.bundestag.de/media/61/fc/814102/N26_Financial-Report_.pdf", note: "p21, incl. 1,957.2 mortgages and 1,643.3 municipal loans"}
-      deposits: {value: 10569.8, source: "https://www.lobbyregister.bundestag.de/media/61/fc/814102/N26_Financial-Report_.pdf", note: "p22, of which 7,013.0 non-interest-bearing"}
-      equity: {value: 465.2, source: "https://www.lobbyregister.bundestag.de/media/61/fc/814102/N26_Financial-Report_.pdf", note: "p22"}
-      total_income: {value: 414.7, source: "https://www.lobbyregister.bundestag.de/media/61/fc/814102/N26_Financial-Report_.pdf", note: "Computed, p17: net interest and fee 368.2 + other operating result 46.5; management revenue EUR 501.6m"}
-      net_profit: {value: 1.6, source: "https://www.lobbyregister.bundestag.de/media/61/fc/814102/N26_Financial-Report_.pdf", note: "p45, first full-year profit"}
-      roe: {value: 0.0035, source: "https://www.lobbyregister.bundestag.de/media/61/fc/814102/N26_Financial-Report_.pdf", note: "Computed: 1.6 / average equity 463.6"}
-      cost_income: {value: 0.939, source: "https://www.lobbyregister.bundestag.de/media/61/fc/814102/N26_Financial-Report_.pdf", note: "Computed: admin expenses 389.4 / 414.7"}
-      cost_of_risk: {value: 0.0057, source: "https://www.lobbyregister.bundestag.de/media/61/fc/814102/N26_Financial-Report_.pdf", note: "Computed: credit loss charge 20.2 / average loans 3,534.1"}
-      nim: {value: 0.0174, source: "https://www.lobbyregister.bundestag.de/media/61/fc/814102/N26_Financial-Report_.pdf", note: "Computed: NII / average total assets"}
+      total_assets: {value: 11108.0, source: "https://www.lobbyregister.bundestag.de/media/61/fc/814102/N26_Financial-Report_.pdf", note: "p21, audited group accounts under German GAAP (HGB), not IFRS"}
+      loans: {value: 3929.2, source: "https://www.lobbyregister.bundestag.de/media/61/fc/814102/N26_Financial-Report_.pdf", note: "p21, receivables from customers (HGB, net of provisions), incl. 1,957.2 mortgages and 1,643.3 municipal loans; overdrafts, instalment and other loans 329.6"}
+      mortgages: {value: 1957.2, source: "https://www.lobbyregister.bundestag.de/media/61/fc/814102/N26_Financial-Report_.pdf", note: "p21"}
+      municipal_loans: {value: 1643.3, source: "https://www.lobbyregister.bundestag.de/media/61/fc/814102/N26_Financial-Report_.pdf", note: "p21"}
+      deposits: {value: 10569.8, source: "https://www.lobbyregister.bundestag.de/media/61/fc/814102/N26_Financial-Report_.pdf", note: "p21-22, of which 7,013.0 non-interest-bearing"}
+      equity: {value: 465.2, source: "https://www.lobbyregister.bundestag.de/media/61/fc/814102/N26_Financial-Report_.pdf", note: "p21-22"}
+      equity_prev: {value: 462.1, source: "https://www.lobbyregister.bundestag.de/media/61/fc/814102/N26_Financial-Report_.pdf", note: "p21, 31.12.2024"}
+      total_income: {value: 414.7, source: "https://www.lobbyregister.bundestag.de/media/61/fc/814102/N26_Financial-Report_.pdf", note: "Computed, p17: net interest and fee income 368.2 + other operating result 46.5; management revenue EUR 501.6m"}
+      net_profit: {value: 1.6, source: "https://www.lobbyregister.bundestag.de/media/61/fc/814102/N26_Financial-Report_.pdf", note: "p17, first full-year profit"}
+      roe: {value: 0.0035, source: "https://www.lobbyregister.bundestag.de/media/61/fc/814102/N26_Financial-Report_.pdf", note: "Computed: 1.6 (p17) / average equity 463.6 (p21)"}
+      cost_income: {value: 0.939, source: "https://www.lobbyregister.bundestag.de/media/61/fc/814102/N26_Financial-Report_.pdf", note: "Computed, p17: administrative expenses 389.4 / 414.7"}
+      cost_of_risk: {value: 0.0057, source: "https://www.lobbyregister.bundestag.de/media/61/fc/814102/N26_Financial-Report_.pdf", note: "Computed: credit loss charge 20.2 (p17) / average loans 3,534.1 (p21)"}
+      nim: {value: 0.0174, source: "https://www.lobbyregister.bundestag.de/media/61/fc/814102/N26_Financial-Report_.pdf", note: "Computed: NII 191.3 (p17) / average total assets 10,993.4 (p21)"}
       loan_yield: {value: null, note: "Not reported"}
-      fee_share: {value: 0.48, source: "https://www.lobbyregister.bundestag.de/media/61/fc/814102/N26_Financial-Report_.pdf", note: "Computed: net fee 176.9 / net interest and fee 368.2"}
-      customers: {value: 5.6, source: "https://n26.com/en-eu/press/press-release/n26-delivers-over-500m-euro-revenue-and-350m-euro-gross-profit-in-2025-hitting-first-full-year-of-net-profitability", note: "Revenue-relevant customers"}
+      fee_share: {value: 0.427, source: "https://www.lobbyregister.bundestag.de/media/61/fc/814102/N26_Financial-Report_.pdf", note: "Computed, p17: net fee and commission income 176.9 / total income 414.7"}
+      customers: {value: 5.6, source: "https://n26.com/en-eu/press/press-release/n26-delivers-over-500m-euro-revenue-and-350m-euro-gross-profit-in-2025-hitting-first-full-year-of-net-profitability", note: "Press release, revenue-relevant customers"}
 
   BANKX:
     name: Bank X (base)

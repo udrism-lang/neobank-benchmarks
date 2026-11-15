@@ -52,6 +52,33 @@ def _fmt(ds: Dataset, c: Company, key: str, source: str) -> str:
     return f"{sym}{v / 1000:,.2f}bn" if abs(v) >= 1000 else f"{sym}{v:,.1f}m"
 
 
+def _is_computed(c: Company, key: str) -> bool:
+    """True when the yaml note says the value was computed from reported lines, not published as is."""
+    v = c.values.get(key)
+    return bool(v and v.value is not None and v.note.lower().startswith("computed"))
+
+
+def _cell(ds: Dataset, c: Company, key: str, source: str) -> str:
+    """Formatted value with a * marker for computed values."""
+    return _fmt(ds, c, key, source) + ("*" if source == "reported" and _is_computed(c, key) else "")
+
+
+# Columns of the README table
+README_COLUMNS = ["total_assets", "loans", "deposits", "net_profit", "roe", "cost_income", "cost_of_risk",
+                  "loan_yield", "fee_share", "loan_to_deposit"]
+
+
+def readme_table(ds: Dataset) -> str:
+    cols = [t for t in TABLE if t[0] in README_COLUMNS]
+    lines = ["| Company | Period | " + " | ".join(label for _, label, _ in cols) + " |",
+             "|" + "---|" * (len(cols) + 2)]
+    for c in ds.companies:
+        name, period = (f"**{c.name}, year 5**", "model") if c.is_model else (c.name, c.period.replace("FY Mar-", "FY to Mar-"))
+        cells = [_cell(ds, c, k, s) for k, _, s in cols]
+        lines.append(f"| {name} | {period} | " + " | ".join(cells) + " |")
+    return "\n".join(lines) + "\n"
+
+
 def _style(ax, title: str) -> None:
     ax.set_title(title, loc="left", fontsize=12, fontweight="bold", color=INK)
     ax.spines[["top", "right"]].set_visible(False)
@@ -134,7 +161,8 @@ def write_markdown(ds: Dataset, findings: list[str], path: Path) -> None:
     head = ["Company", "Period"] + [label for _, label, _ in TABLE]
     lines += ["", "| " + " | ".join(head) + " |", "|" + "---|" * len(head)]
     for c in ds.companies:
-        lines.append("| " + " | ".join([c.name, c.period] + [_fmt(ds, c, k, s) for k, _, s in TABLE]) + " |")
+        lines.append("| " + " | ".join([c.name, c.period] + [_cell(ds, c, k, s) for k, _, s in TABLE]) + " |")
+    lines += ["", "\\* Computed from reported lines; inputs are in the source note in data/benchmarks.yaml."]
     flagged = _flagged(ds)
     if flagged:
         lines += ["", "## Values flagged needs_check", ""] + [f"- {f}" for f in flagged]
@@ -166,7 +194,8 @@ def write_html(ds: Dataset, findings: list[str], charts: list[Path], path: Path)
              f"<meta name='viewport' content='width=device-width,initial-scale=1'><style>{CSS}</style></head>",
              "<body><main class='viz-root'>",
              f"<h1>{e(ds.title)}</h1><p class='muted'>Data as of {e(ds.as_of)}. Amounts in reporting currency. "
-             "Hover a value for its source note; <span class='flag'>*</span> = needs check. "
+             "Hover a value for its source note; * = computed from reported lines; "
+             "<span class='flag'>(check)</span> = needs check. "
              "Shaded rows are the Bank X model, not reported results.</p>",
              "<h2>Findings</h2><ol>"]
     parts += [f"<li>{e(f)}</li>" for f in findings]
@@ -180,8 +209,9 @@ def write_html(ds: Dataset, findings: list[str], charts: list[Path], path: Path)
             text = _fmt(ds, c, key, source)
             v = c.values.get(key) if source == "reported" else None
             tip = " | ".join(x for x in [v.note, v.source] if x) if v else "Computed from reported loans, deposits, equity and assets"
-            flag = "<span class='flag'>*</span>" if v and v.needs_check else ""
-            parts.append(f"<td title='{e(tip)}'>{e(text)}{flag}</td>")
+            mark = "*" if source == "reported" and _is_computed(c, key) else ""
+            flag = " <span class='flag'>(check)</span>" if v and v.needs_check else ""
+            parts.append(f"<td title='{e(tip)}'>{e(text)}{mark}{flag}</td>")
         parts.append("</tr>")
     parts.append("</table></div>")
     for chart in charts:

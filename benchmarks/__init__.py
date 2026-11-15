@@ -1,1 +1,1 @@
-"""Benchmark digital and consumer-lending banks against the Bank X model."""
+"""Benchmark digital banks and deposit-funded lenders against the Bank X model."""

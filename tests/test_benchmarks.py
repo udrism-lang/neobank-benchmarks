@@ -43,12 +43,41 @@ def test_balance_sheet_sizes_are_consistent(ds):
                 assert c.get(k) <= assets, f"{c.code}: {k} > total assets"
 
 
-def test_reported_roe_close_to_profit_over_equity(ds):
-    """ROE should be within a few points of net profit / closing equity (average equity is used in reports)."""
+# Banks whose stated ROE uses a different basis than net profit / average total equity.
+# TF Bank: profit to shareholders / average equity excluding its SEK 250m Tier 1 instrument
+# (annual report 2025 p13, p26-27): 641.2 / ((3,038.0 + 2,522.7) / 2) = 23.1%. See the yaml note on TFB/roe.
+ROE_STATED_BASIS = {"TFB": 641.2 / ((3038.0 + 2522.7) / 2)}
+
+
+def test_roe_matches_profit_over_average_equity(ds):
+    """ROE is within 1 percentage point of net profit / average equity (opening and closing equity)."""
+    checked = 0
     for c in ds.companies:
-        roe, profit, equity = c.get("roe"), c.get("net_profit"), c.get("equity")
-        if roe is not None and profit and equity and not c.is_model:
-            assert abs(roe - profit / equity) < 0.12, f"{c.code}: ROE {roe:.1%} vs {profit / equity:.1%}"
+        roe, profit = c.get("roe"), c.get("net_profit")
+        equity, prev = c.get("equity"), c.get("equity_prev")
+        if c.is_model or roe is None or profit is None:
+            continue
+        assert equity and prev, f"{c.code}: ROE needs equity and equity_prev to be checked"
+        expected = ROE_STATED_BASIS.get(c.code, profit / ((equity + prev) / 2))
+        assert abs(roe - expected) < 0.01, f"{c.code}: ROE {roe:.1%} vs computed {expected:.1%}"
+        checked += 1
+    assert checked >= 7
+
+
+def test_tf_bank_roe_on_total_equity_is_lower(ds):
+    """The exception is real: on total equity TF Bank's ROE is about 1 point lower than stated."""
+    tf = next(c for c in ds.companies if c.code == "TFB")
+    on_total = tf.get("net_profit") / ((tf.get("equity") + tf.get("equity_prev")) / 2)
+    assert 0.005 < tf.get("roe") - on_total < 0.02
+
+
+def test_fee_share_is_net_fee_over_total_income(ds):
+    """Every bank's fee share uses one definition (net fee income / total net income); the note must show net fees."""
+    for c in ds.companies:
+        v = c.values.get("fee_share")
+        if c.is_model or not v or v.value is None:
+            continue
+        assert "net fee" in v.note.lower(), f"{c.code}: fee share note does not show net fee income"
 
 
 def test_fx_conversion(ds):
