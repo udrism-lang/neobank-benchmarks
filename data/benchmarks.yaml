@@ -209,18 +209,18 @@ companies:
     currency: EUR
     is_model: true
     values:
-      total_assets: {value: 265.8, source: "https://github.com/udrism-lang/bank-model", note: "bank-model base case, year 5 (commit 316ee07)"}
-      loans: {value: 198.8, source: "https://github.com/udrism-lang/bank-model", note: "bank-model base case, year 5"}
-      deposits: {value: 243.4, source: "https://github.com/udrism-lang/bank-model", note: "bank-model base case, year 5"}
-      equity: {value: 22.5, source: "https://github.com/udrism-lang/bank-model", note: "bank-model base case, year 5"}
-      total_income: {value: 16.4, source: "https://github.com/udrism-lang/bank-model", note: "bank-model base case, year 5"}
-      net_profit: {value: 1.6, source: "https://github.com/udrism-lang/bank-model", note: "bank-model base case, year 5"}
-      roe: {value: 0.0735, source: "https://github.com/udrism-lang/bank-model", note: "Net profit / average equity"}
-      cost_income: {value: 0.616, source: "https://github.com/udrism-lang/bank-model", note: "Opex / total income"}
-      cost_of_risk: {value: 0.0276, source: "https://github.com/udrism-lang/bank-model", note: "Incl. day-one IFRS 9 provisions on new loans (underlying assumption 2.0%)"}
-      nim: {value: 0.0652, source: "https://github.com/udrism-lang/bank-model", note: "NII / average total assets"}
+      total_assets: {value: 266.1, source: "https://github.com/udrism-lang/bank-model", note: "bank-model base case, year 5 (commit bf39349)"}
+      loans: {value: 199.2, source: "https://github.com/udrism-lang/bank-model", note: "bank-model base case, year 5"}
+      deposits: {value: 241.8, source: "https://github.com/udrism-lang/bank-model", note: "bank-model base case, year 5"}
+      equity: {value: 24.3, source: "https://github.com/udrism-lang/bank-model", note: "bank-model base case, year 5"}
+      total_income: {value: 16.6, source: "https://github.com/udrism-lang/bank-model", note: "bank-model base case, year 5"}
+      net_profit: {value: 2.4, source: "https://github.com/udrism-lang/bank-model", note: "bank-model base case, year 5"}
+      roe: {value: 0.1054, source: "https://github.com/udrism-lang/bank-model", note: "Net profit / average equity"}
+      cost_income: {value: 0.609, source: "https://github.com/udrism-lang/bank-model", note: "Opex / total income"}
+      cost_of_risk: {value: 0.0235, source: "https://github.com/udrism-lang/bank-model", note: "All-in impairment charge (write-offs + IFRS 9 allowance build) / average loans"}
+      nim: {value: 0.0659, source: "https://github.com/udrism-lang/bank-model", note: "NII / average total assets"}
       loan_yield: {value: 0.110, source: "https://github.com/udrism-lang/bank-model", note: "Assumption, calibrated to Inbank"}
-      fee_share: {value: 0.104, source: "https://github.com/udrism-lang/bank-model", note: "Net fees 1.7 / 16.4"}
+      fee_share: {value: 0.104, source: "https://github.com/udrism-lang/bank-model", note: "Net fees 1.7 / 16.6"}
       customers: {value: null, note: "Not modelled"}
 
   BANKX_OPT:
@@ -231,16 +231,16 @@ companies:
     currency: EUR
     is_model: true
     values:
-      total_assets: {value: 305.4, source: "https://github.com/udrism-lang/bank-model", note: "bank-model optimistic case, year 5 (commit 316ee07)"}
-      loans: {value: 240.8, source: "https://github.com/udrism-lang/bank-model", note: "bank-model optimistic case, year 5"}
-      deposits: {value: 270.6, source: "https://github.com/udrism-lang/bank-model", note: "bank-model optimistic case, year 5"}
-      equity: {value: 34.8, source: "https://github.com/udrism-lang/bank-model", note: "bank-model optimistic case, year 5"}
-      total_income: {value: 22.0, source: "https://github.com/udrism-lang/bank-model", note: "bank-model optimistic case, year 5"}
-      net_profit: {value: 6.4, source: "https://github.com/udrism-lang/bank-model", note: "bank-model optimistic case, year 5"}
-      roe: {value: 0.2036, source: "https://github.com/udrism-lang/bank-model", note: "Net profit / average equity"}
-      cost_income: {value: 0.456, source: "https://github.com/udrism-lang/bank-model", note: "Opex / total income"}
-      cost_of_risk: {value: 0.021, source: "https://github.com/udrism-lang/bank-model", note: "Incl. day-one IFRS 9 provisions"}
-      nim: {value: 0.0753, source: "https://github.com/udrism-lang/bank-model", note: "NII / average total assets"}
+      total_assets: {value: 306.1, source: "https://github.com/udrism-lang/bank-model", note: "bank-model optimistic case, year 5 (commit bf39349)"}
+      loans: {value: 241.2, source: "https://github.com/udrism-lang/bank-model", note: "bank-model optimistic case, year 5"}
+      deposits: {value: 269.8, source: "https://github.com/udrism-lang/bank-model", note: "bank-model optimistic case, year 5"}
+      equity: {value: 36.2, source: "https://github.com/udrism-lang/bank-model", note: "bank-model optimistic case, year 5"}
+      total_income: {value: 22.2, source: "https://github.com/udrism-lang/bank-model", note: "bank-model optimistic case, year 5"}
+      net_profit: {value: 6.9, source: "https://github.com/udrism-lang/bank-model", note: "bank-model optimistic case, year 5"}
+      roe: {value: 0.2103, source: "https://github.com/udrism-lang/bank-model", note: "Net profit / average equity"}
+      cost_income: {value: 0.453, source: "https://github.com/udrism-lang/bank-model", note: "Opex / total income"}
+      cost_of_risk: {value: 0.0178, source: "https://github.com/udrism-lang/bank-model", note: "All-in impairment charge (write-offs + IFRS 9 allowance build) / average loans"}
+      nim: {value: 0.0757, source: "https://github.com/udrism-lang/bank-model", note: "NII / average total assets"}
       loan_yield: {value: 0.115, source: "https://github.com/udrism-lang/bank-model", note: "Assumption"}
-      fee_share: {value: 0.113, source: "https://github.com/udrism-lang/bank-model", note: "Net fees 2.5 / 22.0"}
+      fee_share: {value: 0.113, source: "https://github.com/udrism-lang/bank-model", note: "Net fees 2.5 / 22.2"}
       customers: {value: null, note: "Not modelled"}

@@ -70,7 +70,7 @@ def findings(ds: Dataset) -> list[str]:
         f"ROE is {bx.get('roe'):.1%}, against {inb.get('roe_core'):.1%} for Inbank's core business "
         f"({inb.get('roe'):.1%} reported, which includes a one-off gain from the reassessment of Polish tax assets). "
         f"The gap has two causes: cost of risk is higher "
-        f"({bx.get('cost_of_risk'):.2%} vs {inb.get('cost_of_risk'):.2%}, mostly day-one IFRS 9 provisions on a fast-growing book), "
+        f"({bx.get('cost_of_risk'):.2%} vs {inb.get('cost_of_risk'):.2%}, mostly the IFRS 9 loss allowance building up on a fast-growing book), "
         f"and the bank is still sub-scale (cost/income {bx.get('cost_income'):.0%} vs {inb.get('cost_income'):.0%}). "
         f"The optimistic case (ROE {opt.get('roe'):.0%}, cost/income {opt.get('cost_income'):.0%}) would need "
         f"efficiency between {big.name} ({big.get('cost_income'):.0%}) and {tf.name} ({tf.get('cost_income'):.0%})."
